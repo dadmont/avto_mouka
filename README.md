@@ -339,4 +339,17 @@
 </details>
 
 
-[Код ERD](diagrams/ERD)
+Посмотреть [Код ERD](diagrams/ERD)
+
+
+### SequenceDiagrams
+
+![main](image/main.png)
+Посмотреть [Код ERD](diagrams/main)
+
+![Pay](image/Pay.png)
+Посмотреть [Код ERD](diagrams/Pay)
+
+![erd](image/cancel.png)
+Посмотреть [Код ERD](diagrams/cancel)
+
