@@ -38,7 +38,7 @@
 
 ## Сценарии Использования (Use Case Scenarios) 📝
 
-![plantUML](avto_mouka/image/plantUML.png)
+![plantUML](image/plantUML.png)
    
 
 <details>
