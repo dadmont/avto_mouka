@@ -366,3 +366,9 @@
 ![C2](image/c2.png)
 Посмотреть [Код C2](diagrams/c2)
 
+### Спецификация на OpenApi
+Посмотреть  [Код](image/openapi.yaml)
+
+
+![api](image/api1.PNG)
+![api](image/api2.PNG)
