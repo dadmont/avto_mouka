@@ -178,3 +178,8 @@
         *   Техническая поддержка не может ответить на обращение (например, не хватает данных) ⚠️.
      
  </details>
+
+
+### ERD (Entity-Relationship Diagram)
+
+![erd](image/ERD.PNG)
