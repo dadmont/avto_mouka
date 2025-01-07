@@ -1,0 +1,55 @@
+@startuml
+title Sequence Diagram: Оплата услуги (детализировано)
+
+actor Клиент as Client
+participant WebApp as "Web/Mobile App"
+participant ApiServer as "API Server"
+participant PaymentGateway as "Платежная система"
+participant Database as "База данных"
+
+Client -> WebApp: Нажимает "Оплатить" для бронирования (bookingId)
+activate WebApp
+
+WebApp -> ApiServer: Запрос деталей бронирования (bookingId)
+activate ApiServer
+ApiServer -> Database: Запрос деталей бронирования (bookingId)
+activate Database
+Database --> ApiServer: Возвращает детали бронирования
+deactivate Database
+ApiServer --> WebApp: Возвращает детали бронирования
+deactivate ApiServer
+
+WebApp -> WebApp: Отображает детали бронирования
+WebApp -> WebApp : Отображает доступные способы оплаты
+Client -> WebApp: Выбирает способ оплаты
+
+WebApp -> ApiServer: Отправляет запрос на создание платежа (bookingId, способ оплаты)
+activate ApiServer
+ApiServer -> PaymentGateway: Инициирует платеж (данные платежа)
+activate PaymentGateway
+PaymentGateway --> ApiServer: Возвращает ссылку для редиректа
+deactivate PaymentGateway
+ApiServer --> WebApp: Возвращает ссылку для редиректа
+deactivate ApiServer
+
+WebApp -> WebApp: Перенаправляет клиента на платежную страницу
+Client -> PaymentGateway : Вводит платежные данные
+PaymentGateway --> WebApp : Возвращает результат платежа (успех/неудача)
+activate WebApp
+
+WebApp -> ApiServer: Отправляет результат платежа (bookingId, success/failure, id транзакции)
+activate ApiServer
+ApiServer -> Database: Обновляет статус платежа
+activate Database
+Database --> ApiServer: Возвращает подтверждение
+deactivate Database
+ApiServer --> WebApp: Возвращает подтверждение
+deactivate ApiServer
+
+
+WebApp -> WebApp: Отображает результат оплаты
+Client <-- WebApp: Результат оплаты
+
+deactivate WebApp
+
+@enduml
