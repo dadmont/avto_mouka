@@ -1,0 +1,64 @@
+@startuml
+title Sequence Diagram: Запись на мойку (детализировано)
+
+actor Клиент as Client
+participant WebApp as "Web/Mobile App"
+participant ApiServer as "API Server"
+participant Database as "База данных"
+
+
+Client -> WebApp: Нажимает "Записаться на мойку"
+activate WebApp
+
+WebApp -> ApiServer: Запрос списка доступных автомоек
+activate ApiServer
+ApiServer -> Database: Запрос списка автомоек
+activate Database
+Database --> ApiServer: Возвращает список автомоек
+deactivate Database
+ApiServer --> WebApp: Возвращает список автомоек
+deactivate ApiServer
+
+WebApp -> WebApp: Отображает список автомоек
+Client -> WebApp: Выбирает автомойку
+
+WebApp -> ApiServer: Запрос списка доступных услуг для автомойки
+activate ApiServer
+ApiServer -> Database: Запрос списка услуг для автомойки
+activate Database
+Database --> ApiServer: Возвращает список услуг
+deactivate Database
+ApiServer --> WebApp: Возвращает список услуг
+deactivate ApiServer
+
+WebApp -> WebApp: Отображает список услуг
+Client -> WebApp: Выбирает основную услугу
+
+WebApp -> WebApp: Отображает список дополнительных услуг
+Client -> WebApp: Выбирает дополнительные услуги (опционально)
+
+WebApp -> ApiServer: Запрос доступных временных слотов
+activate ApiServer
+ApiServer -> Database: Запрос доступных временных слотов
+activate Database
+Database --> ApiServer: Возвращает список слотов
+deactivate Database
+ApiServer --> WebApp: Возвращает список слотов
+deactivate ApiServer
+
+WebApp -> WebApp: Отображает доступные временные слоты
+Client -> WebApp: Выбирает дату и время
+
+WebApp -> ApiServer: Отправляет данные бронирования (автомойка, услуга, доп. услуги, время, дата)
+activate ApiServer
+ApiServer -> Database: Сохранение данных бронирования
+activate Database
+Database --> ApiServer: Возвращает ID бронирования
+deactivate Database
+ApiServer --> WebApp: Подтверждение бронирования и ID бронирования
+deactivate ApiServer
+
+WebApp -> WebApp: Отображает подтверждение бронирования
+Client <-- WebApp: Подтверждение бронирования
+deactivate WebApp
+@enduml
