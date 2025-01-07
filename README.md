@@ -353,3 +353,16 @@
 ![erd](image/cancel.png)
 Посмотреть [Код ERD](diagrams/cancel)
 
+## C4 ( C1 И C2 )
+
+## C1
+
+![C1](image/c1.png)
+
+Посмотреть [Код C1](diagrams/c1)
+
+## C2
+
+![C2](image/c2.png)
+Посмотреть [Код C2](diagrams/c2)
+
