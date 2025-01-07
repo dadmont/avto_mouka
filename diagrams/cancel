@@ -1,0 +1,44 @@
+@startuml
+title Sequence Diagram: Отмена бронирования (детализировано)
+
+actor Клиент as Client
+participant WebApp as "Web/Mobile App"
+participant ApiServer as "API Server"
+participant Database as "База данных"
+participant PushNotificationService as "Сервис уведомлений"
+
+Client -> WebApp: Переходит в "Мои бронирования"
+activate WebApp
+
+WebApp -> ApiServer: Запрос списка бронирований пользователя
+activate ApiServer
+ApiServer -> Database: Запрос бронирований пользователя
+activate Database
+Database --> ApiServer: Возвращает список бронирований пользователя
+deactivate Database
+ApiServer --> WebApp: Возвращает список бронирований пользователя
+deactivate ApiServer
+
+WebApp -> WebApp: Отображает список бронирований
+Client -> WebApp: Выбирает бронирование для отмены
+Client -> WebApp: Подтверждает отмену
+
+WebApp -> ApiServer: Отправляет запрос на отмену бронирования (bookingId)
+activate ApiServer
+ApiServer -> Database: Обновление статуса бронирования на "отменено" (bookingId)
+activate Database
+Database --> ApiServer: Возвращает подтверждение отмены
+deactivate Database
+ApiServer --> WebApp: Возвращает подтверждение отмены
+deactivate ApiServer
+
+WebApp -> WebApp: Отображает уведомление об отмене
+Client <-- WebApp: Получает уведомление об отмене
+
+ApiServer -> PushNotificationService: Отправляет запрос на push-уведомление об отмене бронирования (userId, bookingId)
+activate PushNotificationService
+PushNotificationService -> PushNotificationService: Отправляет push-уведомление
+deactivate PushNotificationService
+
+deactivate WebApp
+@enduml
