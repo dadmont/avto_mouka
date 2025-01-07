@@ -185,7 +185,7 @@
 ![erd](image/ERD.PNG)
 
 
-# ERD полное описание
+*ERD полное описание*
 
 <details>
   <summary>Клик ( подробно )</summary>
