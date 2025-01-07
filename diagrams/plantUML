@@ -1,0 +1,54 @@
+@startuml
+left to right direction
+skinparam packageStyle rect
+
+actor "Клиент" as client
+actor "Техническая поддержка" as Support
+rectangle "Платежная система" as paySystem
+
+package "Автомойка" {
+  
+  usecase "Редактирование Карточки Клиента" as UC1
+  usecase "Просмотр скидок и акций" as UC2
+  
+    usecase "Запись на мойку" as UC3
+  
+  usecase "Выбор Доп услуг" as UC4
+  usecase "Выбор автомойки" as UC5
+  usecase "Выбор Основной услуги" as UC6
+  usecase "Выбор даты и времени" as UC7
+  usecase "Отмена бронирования" as UC8
+  
+  usecase "Выбор способа оплаты" as UC9
+  usecase "Оплата услуги" as UC10
+    
+    usecase "Получение уведомлений" as UC11
+   
+
+
+   usecase "Управление бронированиями (админ)" as UC15
+  usecase "Управление скидками и акциами" as UC16
+  usecase "Техническая поддержка" as UC17
+
+
+}
+
+client --> UC1
+client --> UC2
+client --> UC3
+UC3 ..> UC4:(include)
+UC3 ..> UC5:(include)
+UC3 ..> UC6:(include)
+UC3 ..> UC7:(include)
+UC3 <.. UC8:(exclude)
+client --> UC9
+UC9 ..> UC10:(include)
+client --> UC11
+
+
+Support --> UC15
+Support --> UC16
+Support --> UC17
+
+UC10 --> paySystem
+@enduml
